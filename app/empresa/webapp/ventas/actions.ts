@@ -31,7 +31,7 @@ export async function submitVenta(formData: FormData) {
   const fields = [
     { name: "👤 Cliente", value: `**${data.nombre}**`, inline: false },
     { name: "🪪 CURP", value: `\`${data.curp}\``, inline: false },
-    { name: "📄 Identificación Física", value: data.identificacion, inline: false },
+    { name: "📄 Identificación física vigente", value: data.identificacion, inline: false },
     { name: "📞 Teléfono", value: data.telefono, inline: false },
     { name: "📍 Dirección", value: data.direccion, inline: false },
     { name: "📱 Equipo", value: `**${data.celular}** (${data.color})`, inline: false },
