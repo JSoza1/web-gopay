@@ -7,16 +7,23 @@ Este repositorio contiene la aplicación web de GoPay, diseñada para la gestió
 - **Frontend**: Next.js (App Router) con React y Tailwind CSS.
 - **Base de Datos y Auth**: Supabase (PostgreSQL + GoTrue).
 - **Email Service**: Resend (vía SMTP personalizado).
+- **Notificaciones**: Discord Webhooks (Notificaciones de ventas en tiempo real).
 - **Hosting y DNS**: Vercel.
 
 ## ⚙️ Configuración de Entorno
 
-Para que la aplicación funcione, es necesario configurar las siguientes variables en un archivo `.env.local` (local) o en el panel de Vercel (producción):
+La aplicación depende de un conjunto de variables de entorno para su correcto funcionamiento en los distintos niveles de la infraestructura (cliente y servidor). Estas deben definirse en el archivo `.env.local` para entornos de desarrollo o en la consola de administración de Vercel para entornos de producción.
 
-- `NEXT_PUBLIC_SUPABASE_URL`: URL del proyecto de Supabase.
-- `NEXT_PUBLIC_SUPABASE_ANON_KEY`: Llave pública anónima de Supabase.
-- `NEXT_PUBLIC_SITE_URL`: URL base de la aplicación (usada para redirecciones de correos).
-- `NEXT_PUBLIC_WHATSAPP_PHONE`: Número de teléfono para los botones de contacto de WhatsApp.
+### Diccionario de Variables de Entorno
+
+| Variable | Ámbito | Descripción Técnica | Propósito Operativo |
+| :--- | :--- | :--- | :--- |
+| `NEXT_PUBLIC_SUPABASE_URL` | Cliente/Servidor | Punto de enlace (Endpoint) de la API de Supabase. | Establecer la conexión con el clúster de base de datos y servicios de infraestructura. |
+| `NEXT_PUBLIC_SUPABASE_ANON_KEY` | Cliente/Servidor | Clave pública de acceso anónimo. | Validar peticiones mediante políticas de seguridad a nivel de fila (RLS). |
+| `NEXT_PUBLIC_SITE_URL` | Cliente/Servidor | URL absoluta del sitio (ej: `https://gopay.mx`). | Punto de retorno para redireccionamientos de autenticación (emails de confirmación/recuperación). |
+| `NEXT_PUBLIC_WHATSAPP_PHONE` | Cliente | Identificador telefónico (E.164, sin prefijo +). | Configuración del destino para los servicios de mensajería instantánea y soporte técnico. |
+| `DISCORD_WEBHOOK_URL` | Servidor | URL de integración para Webhooks de Discord. | Automatización de reportes de ventas y logs de actividad en tiempo real hacia canales internos. |
+
 
 ## 📂 Estructura de Navegación (Webapp)
 
@@ -63,6 +70,21 @@ Para garantizar el funcionamiento de los flujos de autenticación en producción
     - `https://tu-dominio.com/auth/callback`
     - `https://tu-dominio.com/empresa/update-password`
 3.  **Email Confirmation**: Asegurarse de que "Confirm Email" esté activado en el panel de Supabase para mayor seguridad.
+
+## 🤖 Integración con Discord
+
+El sistema de ventas envía notificaciones automáticas a un canal de Discord configurado mediante un Webhook.
+
+- **Configuración**: Se debe crear un Webhook en Discord y asignar su URL a la variable `DISCORD_WEBHOOK_URL`.
+- **Formato**: Los datos llegan como *Embeds* estilizados con colores de marca y campos organizados.
+- **Campos**: Incluye datos del cliente, equipo, enganche, fecha/hora de entrega y comentarios opcionales.
+
+## 📱 Desarrollo y Pruebas Móviles
+
+Para probar la aplicación en dispositivos físicos (iPhone/Android) durante el desarrollo local:
+
+1.  **Red Local**: Acceder mediante la IP de la máquina (ej: `http://192.168.1.5:3000`).
+2.  **Configuración de Origen**: Es necesario actualizar `allowedDevOrigins` en `next.config.ts` con la IP actual para permitir la carga de recursos de Next.js y el funcionamiento de componentes interactivos (como el menú hamburguesa o selectores de fecha).
 
 ---
 *Documento de uso interno - GoPay 2026*

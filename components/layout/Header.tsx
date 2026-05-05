@@ -56,7 +56,7 @@ export default function Header() {
             src="/brands/gopaylogo.webp"
           />
         </div>
-        
+
         {/* Desktop Navigation */}
         <div className={styles.desktopNavWrapper}>
           <nav className={styles.desktopNavMain}>
@@ -71,30 +71,28 @@ export default function Header() {
             <a href="/empresa" className={styles.desktopNavSubLink}>Empresa</a>
           </nav>
         </div>
-        
+
         {/* Mobile Menu Button */}
-        <button 
+        <button
           aria-label={isMenuOpen ? "Close menu" : "Open menu"}
           onClick={toggleMenu}
           className={styles.mobileButton}
         >
           <div className="w-6 h-3.5 relative">
-            <span 
-              className={`absolute left-0 h-[2px] w-full bg-current rounded-full transition-all duration-300 ease-in-out ${
-                isMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
-              }`}
+            <span
+              className={`absolute left-0 h-[2px] w-full bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? "top-1/2 -translate-y-1/2 rotate-45" : "top-0"
+                }`}
             />
-            <span 
-              className={`absolute left-0 h-[2px] w-full bg-current rounded-full transition-all duration-300 ease-in-out ${
-                isMenuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-0"
-              }`}
+            <span
+              className={`absolute left-0 h-[2px] w-full bg-current rounded-full transition-all duration-300 ease-in-out ${isMenuOpen ? "top-1/2 -translate-y-1/2 -rotate-45" : "bottom-0"
+                }`}
             />
           </div>
         </button>
       </div>
 
       {/* Mobile Menu Dropdown */}
-      <div 
+      <div
         className={`
           ${styles.mobileDropdown} 
           ${isMenuOpen ? "opacity-100 scale-y-100 visible" : "opacity-0 scale-y-0 invisible"}
@@ -102,17 +100,17 @@ export default function Header() {
       >
         <nav className={styles.mobileNav}>
           {navItems.map((navItem, index) => (
-            <a 
-              key={index} 
-              className={styles.mobileNavLink} 
+            <a
+              key={index}
+              className={styles.mobileNavLink}
               href={navItem.href}
               onClick={() => setIsMenuOpen(false)}
             >
               {navItem.label}
             </a>
           ))}
-          <a 
-            className={styles.mobileNavSubLink} 
+          <a
+            className={styles.mobileNavSubLink}
             href="/empresa"
             onClick={() => setIsMenuOpen(false)}
           >

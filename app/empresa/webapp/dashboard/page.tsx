@@ -8,7 +8,7 @@ export const revalidate = 60;
 const styles = {
   container: "max-w-6xl mx-auto space-y-10",
   header: "flex items-center justify-between",
-  title: "text-3xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent",
+  title: "text-xl md:text-3xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent",
   grid: "grid grid-cols-1 md:grid-cols-3 gap-6",
   statCard: "bg-slate-900/40 backdrop-blur-xl border border-slate-800 p-8 rounded-3xl space-y-2",
   statLabel: "text-slate-500 text-sm font-medium",
