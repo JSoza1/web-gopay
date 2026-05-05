@@ -29,7 +29,7 @@ export async function submitVenta(formData: FormData) {
   // Formateamos el mensaje para Discord usando "Embeds" para que se vea prolijo
   const fields = [
     { name: "👤 Cliente", value: `**${data.nombre}**`, inline: false },
-    { name: "🪪 INE", value: data.ine, inline: false },
+    { name: "🪪 INE / RESIDENCIA (Física vigente)", value: data.ine, inline: false },
     { name: "📞 Teléfono", value: data.telefono, inline: false },
     { name: "📍 Dirección", value: data.direccion, inline: false },
     { name: "📱 Equipo", value: `**${data.celular}** (${data.color})`, inline: false },
