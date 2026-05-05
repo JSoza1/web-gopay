@@ -14,7 +14,8 @@ export async function submitVenta(formData: FormData) {
   // Extraemos los datos del formulario
   const data = {
     nombre: formData.get("nombre_cliente") as string,
-    ine: formData.get("ine") as string,
+    identificacion: formData.get("identificacion_fisica") as string,
+    curp: formData.get("curp") as string,
     telefono: formData.get("telefono") as string,
     direccion: formData.get("direccion") as string,
     enganche: formData.get("enganche") as string,
@@ -29,7 +30,8 @@ export async function submitVenta(formData: FormData) {
   // Formateamos el mensaje para Discord usando "Embeds" para que se vea prolijo
   const fields = [
     { name: "👤 Cliente", value: `**${data.nombre}**`, inline: false },
-    { name: "🪪 INE / RESIDENCIA (Física vigente)", value: data.ine, inline: false },
+    { name: "🪪 CURP", value: `\`${data.curp}\``, inline: false },
+    { name: "📄 Identificación Física", value: data.identificacion, inline: false },
     { name: "📞 Teléfono", value: data.telefono, inline: false },
     { name: "📍 Dirección", value: data.direccion, inline: false },
     { name: "📱 Equipo", value: `**${data.celular}** (${data.color})`, inline: false },
@@ -38,6 +40,7 @@ export async function submitVenta(formData: FormData) {
     { name: "📅 Fecha de Entrega", value: data.fecha, inline: false },
     { name: "⏰ Hora de Entrega", value: data.hora, inline: false },
   ];
+
 
   // Agregamos comentarios solo si existen
   if (data.comentarios && data.comentarios.trim() !== "") {

@@ -64,42 +64,28 @@ export default function VentasForm() {
       )}
 
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className={styles.inputGroup}>
+        <div className={`${styles.inputGroup} md:col-span-2`}>
           <label className={styles.label}>Nombre de cliente</label>
           <input type="text" name="nombre_cliente" className={styles.input} required placeholder="Nombre completo" />
         </div>
+
         <div className={styles.inputGroup}>
-          <div className="flex items-center justify-between mb-1">
-            <label className={styles.label}>INE / RESIDENCIA (Fisica vigente)</label>
-            <button 
-              type="button" 
-              onClick={() => setHasIne(!hasIne)}
-              className={`text-[10px] uppercase tracking-wider font-bold px-2 py-1 rounded-lg transition-all border ${
-                hasIne 
-                  ? 'bg-secondary/10 text-secondary border-secondary/20 hover:bg-secondary/20' 
-                  : 'bg-red-500/10 text-red-400 border-red-500/20 hover:bg-red-500/20'
-              }`}
-            >
-              {hasIne ? 'Tiene' : 'No tiene'}
-            </button>
-          </div>
-          {hasIne ? (
-            <input 
-              type="text" 
-              name="ine" 
-              className={`${styles.input} animate-in fade-in slide-in-from-top-1 duration-200`} 
-              required 
-              placeholder="Número de identificación" 
-            />
-          ) : (
-            <>
-              <input type="hidden" name="ine" value="No" />
-              <div className="w-full bg-red-500/5 border border-dashed border-red-500/20 rounded-xl px-4 py-3 text-red-400/60 text-xs italic flex items-center gap-2 animate-in zoom-in-95 duration-200">
-                <span className="material-symbols-outlined text-sm">block</span>
-                Se registrará como "No cuenta con identificación"
-              </div>
-            </>
-          )}
+          <label className={styles.label}>¿Cuenta con Identificación? (Física vigente)</label>
+          <select name="identificacion_fisica" className={styles.input} required>
+            <option value="Si">Sí cuenta con INE/Residencia</option>
+            <option value="No">No cuenta con INE/Residencia</option>
+          </select>
+        </div>
+
+        <div className={styles.inputGroup}>
+          <label className={styles.label}>CURP</label>
+          <input 
+            type="text" 
+            name="curp" 
+            className={styles.input} 
+            required 
+            placeholder="Ingrese los 18 caracteres de la CURP" 
+          />
         </div>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Número de teléfono</label>
@@ -107,7 +93,7 @@ export default function VentasForm() {
         </div>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Dirección</label>
-          <input type="text" name="direccion" className={styles.input} required placeholder="Ej: Calle falsa 123" />
+          <input type="text" name="direccion" className={styles.input} required placeholder="Enlace Google Maps" />
         </div>
         <div className={styles.inputGroup}>
           <label className={styles.label}>Enganche</label>
