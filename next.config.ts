@@ -4,6 +4,9 @@ const nextConfig: NextConfig = {
   // Oculta que estamos usando Next.js por seguridad
   poweredByHeader: false,
   
+  // Permite acceso desde la red local para desarrollo en dispositivos físicos
+  allowedDevOrigins: ['192.168.1.5', 'localhost:3000'],
+  
   // Configuración de cabeceras HTTP de seguridad
   async headers() {
     return [

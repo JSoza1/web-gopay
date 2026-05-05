@@ -7,7 +7,7 @@ export const revalidate = 0;
 
 const styles = {
   card: "w-full max-w-2xl mx-auto bg-slate-900/40 backdrop-blur-xl border border-slate-800 p-12 rounded-3xl text-center space-y-6",
-  title: "text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent",
+  title: "text-2xl md:text-4xl font-bold bg-gradient-to-r from-white to-slate-400 bg-clip-text text-transparent",
   message: "text-slate-400 text-lg",
 };
 
