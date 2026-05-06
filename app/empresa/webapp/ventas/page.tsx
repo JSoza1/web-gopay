@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getUserRole, isAllowed } from "@/utils/auth-check";
+import { getUserProfile, isAllowed } from "@/utils/auth-check";
 import AccessDenied from "@/components/empresa/AccessDenied";
 
 export const revalidate = 0;
@@ -19,7 +19,7 @@ const styles = {
 import VentasForm from "@/components/empresa/VentasForm";
 
 export default async function VentasPage() {
-  const userRole = await getUserRole();
+  const { role: userRole } = await getUserProfile();
 
   if (!isAllowed(userRole, ["Admin", "Closer"])) {
     return <AccessDenied role={userRole} sectionName="Formulario de Ventas" />;

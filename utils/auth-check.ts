@@ -1,13 +1,16 @@
 import { createClient } from "./supabase/server";
 
-export async function getUserRole() {
+export async function getUserProfile() {
   const supabase = await createClient();
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, username")
     .single();
     
-  return profile?.role || "Closer";
+  return {
+    role: profile?.role || "Closer",
+    username: profile?.username || null
+  };
 }
 
 /**

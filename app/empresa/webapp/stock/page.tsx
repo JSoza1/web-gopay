@@ -1,6 +1,6 @@
 import React from "react";
 import Link from "next/link";
-import { getUserRole, isAllowed } from "@/utils/auth-check";
+import { getUserProfile, isAllowed } from "@/utils/auth-check";
 import AccessDenied from "@/components/empresa/AccessDenied";
 
 export const revalidate = 0;
@@ -12,7 +12,7 @@ const styles = {
 };
 
 export default async function StockPage() {
-  const userRole = await getUserRole();
+  const { role: userRole } = await getUserProfile();
 
   if (!isAllowed(userRole, ["Admin"])) {
     return <AccessDenied role={userRole} sectionName="Stock de Ventas" />;

@@ -23,6 +23,7 @@ La aplicación depende de un conjunto de variables de entorno para su correcto f
 | `NEXT_PUBLIC_SITE_URL` | Cliente/Servidor | URL absoluta del sitio (ej: `https://gopay.mx`). | Punto de retorno para redireccionamientos de autenticación (emails de confirmación/recuperación). |
 | `NEXT_PUBLIC_WHATSAPP_PHONE` | Cliente | Identificador telefónico (E.164, sin prefijo +). | Configuración del destino para los servicios de mensajería instantánea y soporte técnico. |
 | `DISCORD_WEBHOOK_URL` | Servidor | URL de integración para Webhooks de Discord. | Automatización de reportes de ventas y logs de actividad en tiempo real hacia canales internos. |
+| `DISCORD_ROLE_ID` | Servidor | ID del rol de Discord a mencionar. | Permite notificar a un equipo específico (ej: Ventas) al recibir un nuevo reporte. |
 
 
 ## 📂 Estructura de Navegación (Webapp)
@@ -36,6 +37,7 @@ La aplicación utiliza un sistema de rutas anidadas y layouts compartidos para o
 - `/empresa/webapp/ventas`: Registro de nuevos pedidos y notificaciones.
 - `/empresa/webapp/stock`: Consulta y actualización de stock (Solo Admin).
 - `/empresa/webapp/dashboard`: Métricas y rendimiento empresarial (Solo Admin).
+- `/empresa/webapp/perfil`: Gestión de identidad (Nombre de usuario y rol).
 
 ## 🔐 Gestión de Roles y Seguridad
 
@@ -44,8 +46,9 @@ El sistema implementa **RBAC (Role-Based Access Control)** gestionado desde la b
 1.  **Roles**:
     - `Admin`: Acceso total a todas las secciones y edición de datos.
     - `Closer`: Acceso restringido únicamente al Formulario de Ventas.
-2.  **Sincronización**: Los perfiles se crean automáticamente mediante un Trigger en Supabase tras el registro exitoso.
-3.  **Protección**: La validación de roles se realiza en el servidor (Server Components) para prevenir accesos no autorizados.
+2.  **Sincronización**: Los perfiles se crean automáticamente mediante un Trigger en Supabase tras el registro exitoso. El esquema completo se encuentra en `database/schema.sql`.
+3.  **Identidad (Onboarding)**: Los usuarios deben elegir un `username` único al primer ingreso. Esto garantiza la trazabilidad en Discord y en el header de la webapp.
+4.  **Protección**: La validación de roles se realiza en el servidor (Server Components) para prevenir accesos no autorizados.
 
 ## 📧 Configuración de Mensajería (Resend)
 

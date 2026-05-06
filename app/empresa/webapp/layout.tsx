@@ -3,6 +3,8 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import { logout } from "../login/actions";
 import Link from "next/link";
+import OnboardingModal from "@/components/empresa/OnboardingModal";
+import HeaderActions from "@/components/empresa/HeaderActions";
 
 export const revalidate = 0;
 
@@ -33,14 +35,21 @@ export default async function WebAppLayout({
 
   const { data: profile } = await supabase
     .from("profiles")
-    .select("role")
+    .select("role, username")
     .single();
 
   const userRole = profile?.role || "Closer";
+  const username = profile?.username;
   const isAdmin = userRole === "Admin";
+
+  // Mostramos el modal si no hay username definido
+  const showOnboarding = !username;
 
   return (
     <div className={styles.wrapper}>
+      {/* Modal de Bienvenida al máximo nivel para evitar conflictos de z-index y centrado */}
+      <OnboardingModal isOpen={showOnboarding} />
+
       <div className={styles.container}>
         {/* Header Compartido */}
         <header className={styles.header}>
@@ -55,20 +64,26 @@ export default async function WebAppLayout({
               </div>
             </Link>
             <div className="flex items-center gap-3">
-              <p className={styles.subtitle}>{user.email}</p>
-              <span className={`px-2 py-0.5 rounded-full text-[10px] font-bold uppercase tracking-wider ${isAdmin ? "bg-secondary text-slate-950" : "bg-slate-800 text-slate-400 border border-slate-700"
-                }`}>
-                Rol: {userRole}
-              </span>
+              <div className={styles.subtitle}>
+                {username ? (
+                  <div className="flex items-center gap-3">
+                    <span className={`px-3 py-1 rounded-lg text-xs font-bold uppercase tracking-wider border ${
+                      isAdmin ? "bg-secondary/10 text-secondary border-secondary/20" : "bg-slate-800 text-slate-400 border-slate-700"
+                    }`}>
+                      {userRole}
+                    </span>
+                    <span className="text-white font-bold text-lg">
+                      {username.charAt(0).toUpperCase() + username.slice(1)}
+                    </span>
+                  </div>
+                ) : (
+                  user.email
+                )}
+              </div>
             </div>
           </div>
 
-          <form action={logout}>
-            <button className={styles.logoutBtn}>
-              <span className="material-symbols-outlined text-sm">logout</span>
-              Cerrar Sesión
-            </button>
-          </form>
+          <HeaderActions />
         </header>
 
         {/* Contenido de las páginas */}
